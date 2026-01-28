@@ -1,24 +1,132 @@
-<?php foreach ($portfolio_items as $item): ?>
-    <div class="video-card">
-        <?php if (!empty($item['portfolio-video']) && $item['portfolio-video'] !== '#'): ?>
-            <video controls poster="<?= $item['image']; ?>" preload="metadata">
-                <source src="<?= $item['portfolio-video']; ?>" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        <?php else: ?>
-            <div class="video-placeholder">
-                <img src="<?= $item['image']; ?>" alt="<?= $item['title']; ?>">
-            </div>
-        <?php endif; ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Video Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+        }
 
-        <div class="video-info">
-            <h3><?= $item['title']; ?></h3>
-            <p><?= $item['desc']; ?></p>
-            <p><b>Technology:</b> <?= $item['technology']; ?></p>
-            <p><b>Contribution:</b> <?= $item['contribution']; ?></p>
-            <?php if (!empty($item['link']) && $item['link'] !== '#'): ?>
-                <a href="<?= $item['link']; ?>" target="_blank">View Project →</a>
+        .video-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+            justify-content: center;
+        }
+
+        .video-card {
+            width: 320px;
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .video-card video,
+        .video-card .video-placeholder img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .video-info {
+            padding: 10px 15px;
+        }
+
+        .video-info h3 {
+            margin: 0 0 8px;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .video-info p {
+            margin: 4px 0;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .video-info a {
+            display: inline-block;
+            margin-top: 8px;
+            color: #1a73e8;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .video-info a:hover {
+            text-decoration: underline;
+        }
+
+        .video-placeholder {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+        }
+    </style>
+</head>
+<body>
+
+<?php
+// Portfolio items array
+$portfolio_items = [
+    [
+        'title' => 'Pharmacy Conference',
+        'desc' => 'This conference is designed to engage, inspire and promote the exchange of ideas around the most recent developments in pharmaceutical and clinical research.',
+        'image' => 'assets/images/porfolio/pharmacy-conference.png',
+        'portfolio-video'=> 'https://bsictvince.github.io/video-content/portfolio-videos/pharmacy-conference-video-file.mp4',
+        'modal-preview'=>'assets/images/porfolio/pharmacy-conference-fullscreenshot.png',
+        'link' => 'https://bsictvince.github.io/pharmacy-conference/',
+        'technology' => 'HTML, CSS, JavaScript, PHP, Bootstrap',
+        'contribution'=>'Development',
+    ],
+    [
+        'title' => 'All in One Dev Tools',
+        'desc' => 'All tools in one extension for developers to make development easier and faster. Includes code editor, debugger, API tester, and more.',
+        'image' => 'assets/images/porfolio/comming-soon.jpg',
+        'portfolio-video'=> '#',
+        'modal-preview'=>'assets/images/porfolio/comming-soon.jpg',
+        'link' => '#',
+        'technology' => 'JSON, HTML, CSS, JavaScript',
+        'contribution'=>'Design and Development',
+    ],
+    // Add more portfolio items here...
+];
+?>
+
+<div class="video-grid">
+    <?php foreach ($portfolio_items as $item): ?>
+        <div class="video-card">
+            <?php if (!empty($item['portfolio-video']) && $item['portfolio-video'] !== '#'): ?>
+                <video controls preload="metadata" poster="<?= $item['image']; ?>">
+                    <source src="<?= $item['portfolio-video']; ?>" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            <?php else: ?>
+                <div class="video-placeholder">
+                    <img src="<?= $item['image']; ?>" alt="<?= $item['title']; ?>">
+                </div>
             <?php endif; ?>
+
+            <div class="video-info">
+                <h3><?= $item['title']; ?></h3>
+                <p><?= $item['desc']; ?></p>
+                <p><b>Technology:</b> <?= $item['technology']; ?></p>
+                <p><b>Contribution:</b> <?= $item['contribution']; ?></p>
+                <?php if (!empty($item['link']) && $item['link'] !== '#'): ?>
+                    <a href="<?= $item['link']; ?>" target="_blank">View Project →</a>
+                <?php endif; ?>
+            </div>
         </div>
-    </div>
-<?php endforeach; ?>
+    <?php endforeach; ?>
+</div>
+
+</body>
+</html>
