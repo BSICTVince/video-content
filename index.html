@@ -1,34 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Video Portfolio</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<?php foreach ($portfolio_items as $item): ?>
+    <div class="video-card">
+        <?php if (!empty($item['portfolio-video']) && $item['portfolio-video'] !== '#'): ?>
+            <video controls poster="<?= $item['image']; ?>" preload="metadata">
+                <source src="<?= $item['portfolio-video']; ?>" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        <?php else: ?>
+            <div class="video-placeholder">
+                <img src="<?= $item['image']; ?>" alt="<?= $item['title']; ?>">
+            </div>
+        <?php endif; ?>
 
-        <style>
-        body {
-            margin: 0;
-            background-color: #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        video {
-            width: 100%;
-            max-width: 1000px;
-            height: auto;
-        }
-    </style>
-    </head>
-    <body>
-
-        <video controls autoplay muted>
-            <source src="portfolio-videos/pharmacy-conference-video-file.mp4"
-                type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-
-    </body>
-</html>
+        <div class="video-info">
+            <h3><?= $item['title']; ?></h3>
+            <p><?= $item['desc']; ?></p>
+            <p><b>Technology:</b> <?= $item['technology']; ?></p>
+            <p><b>Contribution:</b> <?= $item['contribution']; ?></p>
+            <?php if (!empty($item['link']) && $item['link'] !== '#'): ?>
+                <a href="<?= $item['link']; ?>" target="_blank">View Project →</a>
+            <?php endif; ?>
+        </div>
+    </div>
+<?php endforeach; ?>
